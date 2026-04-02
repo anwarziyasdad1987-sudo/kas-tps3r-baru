@@ -116,14 +116,17 @@ function login(){
 function logout(){ auth.signOut(); }
 
 auth.onAuthStateChanged(u=>{
-if(u){
-login.style.display="none";
-app.style.display="block";
-ambil();
-}else{
-login.style.display="block";
-app.style.display="none";
-}
+  const loginDiv = document.getElementById("login");
+  const appDiv = document.getElementById("app");
+
+  if(u){
+    loginDiv.style.display="none";
+    appDiv.style.display="block";
+    ambil();
+  } else {
+    loginDiv.style.display="block";
+    appDiv.style.display="none";
+  }
 });
 
 function tambah(){
