@@ -95,9 +95,22 @@ const db = firebase.firestore();
 let data=[], editId=null;
 
 function login(){
-let e=email.value, p=password.value;
-auth.signInWithEmailAndPassword(e,p)
-.catch(()=>auth.createUserWithEmailAndPassword(e,p));
+  const e = document.getElementById("email").value;
+  const p = document.getElementById("password").value;
+
+  auth.signInWithEmailAndPassword(e, p)
+  .then(() => {
+    alert("Login berhasil");
+  })
+  .catch(err => {
+    if(err.code === "auth/user-not-found"){
+      auth.createUserWithEmailAndPassword(e, p)
+      .then(()=> alert("Akun dibuat & login berhasil"))
+      .catch(e => alert(e.message));
+    } else {
+      alert(err.message);
+    }
+  });
 }
 
 function logout(){ auth.signOut(); }
