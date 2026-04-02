@@ -100,7 +100,7 @@ function login(){
 
   auth.createUserWithEmailAndPassword(e,p)
   .then(()=>{
-    alert("Akun dibuat & login berhasil");
+    alert("Berhasil login");
   })
   .catch(err=>{
     alert(err.message);
@@ -109,17 +109,22 @@ function login(){
 
 function logout(){ auth.signOut(); }
 
-auth.onAuthStateChanged(u=>{
+auth.onAuthStateChanged(function(u){
   const loginDiv = document.getElementById("login");
   const appDiv = document.getElementById("app");
 
+  if(!loginDiv || !appDiv){
+    console.log("Element belum siap");
+    return;
+  }
+
   if(u){
-    loginDiv.style.display="none";
-    appDiv.style.display="block";
+    loginDiv.style.display = "none";
+    appDiv.style.display = "block";
     ambil();
   } else {
-    loginDiv.style.display="block";
-    appDiv.style.display="none";
+    loginDiv.style.display = "block";
+    appDiv.style.display = "none";
   }
 });
 
